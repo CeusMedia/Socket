@@ -1,0 +1,15 @@
+{
+    "name": "ceus-media/socket-stream",
+    "description": "Simple implementation of socket stream server and client.",
+    "type": "library",
+    "require": {
+        "ceus-media/common": "^0.8"
+    },
+    "authors": [
+        {
+            "name": "Christian Würker",
+            "email": "christian.wuerker@ceusmedia.de"
+        }
+    ],
+    "minimum-stability": "dev"
+}
