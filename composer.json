@@ -11,5 +11,10 @@
             "email": "christian.wuerker@ceusmedia.de"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "CeusMedia\\SocketStream\\": ["src/"]
+        }
+    }
 }
