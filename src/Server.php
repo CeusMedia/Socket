@@ -23,6 +23,7 @@ abstract class Server{
 			if( !$this->socket )
 				throw new \RuntimeException( $errorMessage, $errorNumber );
 			stream_set_blocking( $this->socket, 0 );
+			stream_set_timeout( $this->socket, 0 );
 			$this->__onServerConnected();
 			$this->runService();
 		}
@@ -31,17 +32,17 @@ abstract class Server{
 		}
 	}
 
-	public function disconnect(){
-		if( $this->socket )
-			@fclose( $this->socket );
-	}
-
 	public function __destruct(){
 		if( $this->socket )
 			@fclose( $this->socket );
 	}
 
 	protected function __onServerConnected(){}
+
+	public function disconnect(){
+		if( $this->socket )
+			@fclose( $this->socket );
+	}
 
 	abstract protected function handleRequest( $connection, $request );
 
@@ -60,7 +61,7 @@ abstract class Server{
 
 
 	protected function runService(){
-		while( $this->socket && $conn = @stream_socket_accept( $this->socket ) ){
+		while( $this->socket && $conn = stream_socket_accept( $this->socket ) ){
 			$content	= fread( $conn, 64 * 1024 );
 			try{
 				$response	= $this->handleRequest( $conn, $content );
